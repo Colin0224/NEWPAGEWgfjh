@@ -8,7 +8,7 @@ function App() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const res = await axios.post('https://totalenglish.vercel.app/', { message });
+    const res = await axios.post('http://localhost:3000/', { message });
     setResponse(res.data);
   };
 
