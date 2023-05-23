@@ -8,10 +8,21 @@ function App() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const res = await axios.post('http://localhost:3000/', { message });
-    setResponse(res.data);
+    const url = 'https://api.openai.com/v1/completions';
+    const data = {
+      prompt: `The inputs are a list of attributes, with those inputs, produce an estimate of the annual salary of the individual as well as the job title they hold: ${message}\n\nAnswer:`,
+      model: 'text-davinci-003',
+      max_tokens: 3000,
+      n: 1,
+      temperature: 1.0,
+    };
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer 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`,
+    };
+    const res = await axios.post(url, data, { headers });
+    setResponse(res.data.choices[0].text.trim());
   };
-
   return (
     <div className="app">
       <h1>Welcome to Salary Predictor</h1>
